@@ -26,18 +26,45 @@ public class Mover
 
         if(hasMoved)
             RandomFiller.Fill(game.Cells);
+        game.IsFinished = IsFinished(game);
         return game;
+    }
+
+    private static bool IsFinished(GameDto game)
+    {
+        var cells = game.Cells;
+        var emptyTiles = cells.Where(c => c.Value == 0).ToList();
+        if (emptyTiles.Count != 0) return false;
+        for(var i = 0; i<game.Width;i++)
+        for(var j = 0; j<game.Height-1;j++)
+            if (GetCellByPos(game, i, j).Value == GetCellByPos(game, i, j + 1).Value)
+                return false;
+        for(var i = 0; i<game.Width-1;i++)
+        for(var j = 0; j<game.Height;j++)
+            if (GetCellByPos(game, i, j).Value == GetCellByPos(game, i+1, j).Value)
+                return false;
+        return true;
+    }
+
+    private static CellDto GetCellByPos(GameDto game, VectorDto pos)
+    {
+        return game.Cells[game.Width * pos.X + pos.Y];
+    }
+    
+    private static CellDto GetCellByPos(GameDto game, int x, int y)
+    {
+        return game.Cells[game.Width *x + y];
     }
 
     private static void Move(GameDto game, VectorDto pos, VectorDto direction)
     {
         var newPos = pos + direction;
-        if(game.Cells[game.Width * newPos.X + newPos.Y].Value ==0)
-            game.Cells[game.Width * newPos.X + newPos.Y].Value = game.Cells[game.Width * pos.X + pos.Y].Value;
+        if(GetCellByPos(game, newPos).Value ==0)
+            GetCellByPos(game, newPos).Value = GetCellByPos(game, pos).Value;
         else
         {
-            game.Cells[game.Width * newPos.X + newPos.Y].Value = game.Cells[game.Width * pos.X + pos.Y].Value*2;
-            game.Score += game.Cells[game.Width * newPos.X + newPos.Y].Value;
+            GetCellByPos(game, newPos).Value = GetCellByPos(game, pos).Value*2;
+            game.Score += GetCellByPos(game, newPos).Value;
         }
             
         game.Cells[game.Width * pos.X + pos.Y].Value = 0;
