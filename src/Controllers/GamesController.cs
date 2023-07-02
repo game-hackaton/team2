@@ -7,11 +7,11 @@ namespace thegame.Controllers;
 [Route("api/games")]
 public class GamesController : Controller
 {
-    private readonly GamesRepository _gamesRepository = new();
+
     [HttpPost]
     public IActionResult NewGame()
     {
-        var game = _gamesRepository.CreateGame();
+        var game = GamesRepository.CreateGame();
         return new JsonResult(game);
     }
 }

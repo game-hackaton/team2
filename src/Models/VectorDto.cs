@@ -1,6 +1,6 @@
 namespace thegame.Models;
 
-public class VectorDto
+public struct VectorDto
 {
     public VectorDto(int x, int y)
     {
@@ -10,4 +10,9 @@ public class VectorDto
 
     public int X { get; set; }
     public int Y { get; set; }
+    
+    public static VectorDto operator +(VectorDto first,VectorDto second)
+    {
+        return new VectorDto(first.X + second.X, first.Y + second.Y);
+    }
 }

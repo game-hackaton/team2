@@ -5,21 +5,21 @@ using thegame.Models;
 
 namespace thegame.Services;
 
-public class GamesRepository
+public static class GamesRepository
 {
-    private Dictionary<Guid, GameDto> Games { get; set; } = new();
+    private static Dictionary<Guid, GameDto> Games { get; set; } = new();
 
-    public List<GameDto> GetAll()
+    public static List<GameDto> GetAll()
     {
         return Games.Values.ToList();
     }
 
-    public GameDto GetGame(Guid id)
+    public static GameDto GetGame(Guid id)
     {
         return Games[id];
     }
 
-    public GameDto CreateGame()
+    public static GameDto CreateGame()
     {
         var newGame = new GameDto();
         Games.Add(newGame.Id, newGame);
