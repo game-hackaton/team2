@@ -7,7 +7,7 @@ namespace thegame.Services;
 
 public class GamesRepository
 {
-    private Dictionary<Guid,GameDto> Games { get; set; }
+    private Dictionary<Guid, GameDto> Games { get; set; } = new();
 
     public List<GameDto> GetAll()
     {

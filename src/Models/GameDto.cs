@@ -1,4 +1,5 @@
 using System;
+using thegame.Services;
 
 namespace thegame.Models;
 
@@ -16,9 +17,16 @@ public class GameDto
         Score = score;
     }
 
-    public GameDto()
+    public GameDto(int width = 4, int height = 4)
     {
-        //TODO Create game
+        Cells = GamefieldCreator.Create(width, height);
+        Width = width;
+        Height = height;
+        MonitorKeyboard = true;
+        MonitorMouseClicks = true;
+        Id = new Guid();
+        IsFinished = false;
+        Score = 0;
     }
 
     public CellDto[] Cells { get; set; }

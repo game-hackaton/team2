@@ -1,3 +1,5 @@
+using System;
+
 namespace thegame.Models;
 
 public class CellDto
@@ -10,18 +12,20 @@ public class CellDto
     /// <param name="type">Frontend apply images and other styling to the cell according to this type</param>
     /// <param name="content">Frontend can put this text in the cell</param>
     /// <param name="zIndex">Frontend render cells with higher zIndex above cells with lower zIndex</param>
-    public CellDto(string id, VectorDto pos, string type, string content, int zIndex)
+    public CellDto(VectorDto pos, int value = 0, int zIndex = 0)
     {
-        Id = id;
+        Id = Guid.NewGuid().ToString();
         Pos = pos;
-        Type = type;
-        Content = content;
+        Value = value;
         ZIndex = zIndex;
     }
 
     public string Id { get; set; }
     public VectorDto Pos { get; set; }
     public int ZIndex { get; set; }
-    public string Type { get; set; }
-    public string Content { get; set; }
+    public string Type => "color" + Value;
+    public int Value { get; set; }
+
+    public string Content => Value == 0 ? "" : Math.Pow(2, Value).ToString();
+    
 }

@@ -7,9 +7,11 @@ namespace thegame.Controllers;
 [Route("api/games")]
 public class GamesController : Controller
 {
+    private readonly GamesRepository _gamesRepository = new();
     [HttpPost]
-    public IActionResult Index()
+    public IActionResult NewGame()
     {
-        return Ok(TestData.AGameDto(new VectorDto {X = 1, Y = 1}));
+        var game = _gamesRepository.CreateGame();
+        return new JsonResult(game);
     }
 }
