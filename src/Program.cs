@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using thegame.Services;
 
 var builder = WebApplication.CreateBuilder();
 
 builder.Services.AddMvc();
-
 var app = builder.Build();
 
 app.UseDeveloperExceptionPage();
