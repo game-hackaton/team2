@@ -14,13 +14,9 @@ public static class GamesRepository
         return Games.Values.ToList();
     }
 
-    public static GameDto GetGame(Guid id)
+    public static GameDto GetOrCreateGame(Guid id = new())
     {
-        return Games[id];
-    }
-
-    public static GameDto CreateGame()
-    {
+        if (Games.ContainsKey(id)) return Games[id];
         var newGame = new GameDto();
         Games.Add(newGame.Id, newGame);
         return newGame;

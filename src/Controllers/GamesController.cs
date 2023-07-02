@@ -11,7 +11,7 @@ public class GamesController : Controller
     [HttpPost]
     public IActionResult NewGame()
     {
-        var game = GamesRepository.CreateGame();
+        var game = GamesRepository.GetOrCreateGame();
         return new JsonResult(game);
     }
 }
