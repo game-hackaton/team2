@@ -11,11 +11,11 @@ public static class KeyVectorConverter
         if (key == 37)
             return new VectorDto(-1, 0);
         if (key == 38)
-            return new VectorDto(0, 1);
+            return new VectorDto(0, -1);
         if (key == 39)
             return new VectorDto(1, 0);
         if (key == 40)
-            return new VectorDto(0, -1);
+            return new VectorDto(0, 1);
         return new VectorDto(0, 0);
     }
 }
