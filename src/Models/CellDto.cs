@@ -23,9 +23,9 @@ public class CellDto
     public string Id { get; set; }
     public VectorDto Pos { get; set; }
     public int ZIndex { get; set; }
-    public string Type => "color" + Value;
+    public string Type => "tile-" + Value;
     public int Value { get; set; }
 
-    public string Content => Value == 0 ? "" : Math.Pow(2, Value).ToString();
+    public string Content => Value == 0? "":Value.ToString();
     
 }

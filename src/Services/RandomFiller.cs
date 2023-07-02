@@ -12,7 +12,7 @@ public static class RandomFiller
         if (emptyTiles.Count == 0) return false;
         var rnd = new Random();
         var next = rnd.Next(emptyTiles.Count);
-        emptyTiles[next].Value = 1;
+        emptyTiles[next].Value = 2;
         return true;
     }
 }
