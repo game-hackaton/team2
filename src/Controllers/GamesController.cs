@@ -1,5 +1,5 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
-using thegame.Models;
 using thegame.Services;
 
 namespace thegame.Controllers;
@@ -10,6 +10,14 @@ public class GamesController : Controller
 
     [HttpPost]
     public IActionResult NewGame()
+    {
+        var game = GamesRepository.GetOrCreateGame();
+        return new JsonResult(game);
+    }
+
+    [HttpGet]
+    [Route("/{gameId}")]
+    public IActionResult OpenGame(Guid gameId)
     {
         var game = GamesRepository.GetOrCreateGame();
         return new JsonResult(game);
