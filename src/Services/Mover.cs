@@ -8,20 +8,23 @@ public class Mover
 {
     public static GameDto Move(GameDto game, VectorDto direction)
     {
-        bool hasMoved = true;
+        var hasMoved = false;
+        var hasMovedLastCheck = true;
         //TODO Optimize
-        while (hasMoved)
+        while (hasMovedLastCheck)
         {
-            hasMoved = false;
+            hasMovedLastCheck = false;
             foreach (var cell in game.Cells.Where(c=>c.Value!=0))
             {
                 if (!CanMove(game, cell.Pos, direction)) continue;
                 Move(game, cell.Pos, direction);
+                hasMovedLastCheck = true;
                 hasMoved = true;
             }
         }
 
-        RandomFiller.Fill(game.Cells);
+        if(hasMoved)
+            RandomFiller.Fill(game.Cells);
         return game;
     }
 
