@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using thegame.Models;
 
 namespace thegame.Services;
@@ -9,14 +10,16 @@ public class Mover
     {
         bool hasMoved = true;
         //TODO Optimize
-        hasMoved = false;
-        foreach (var cell in game.Cells)
+        while (hasMoved)
         {
-            if (!CanMove(game, cell.Pos, direction)) continue;
-            Move(game, cell.Pos, direction);
-            hasMoved = true;
+            hasMoved = false;
+            foreach (var cell in game.Cells.Where(c=>c.Value!=0))
+            {
+                if (!CanMove(game, cell.Pos, direction)) continue;
+                Move(game, cell.Pos, direction);
+                hasMoved = true;
+            }
         }
-        
 
         return game;
     }
