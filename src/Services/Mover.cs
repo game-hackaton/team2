@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using thegame.Models;
 
@@ -8,20 +9,23 @@ public class Mover
 {
     public static GameDto Move(GameDto game, VectorDto direction)
     {
-        bool hasMoved = true;
+        var hasMoved = false;
+        var hasMovedLastCheck = true;
         //TODO Optimize
-        while (hasMoved)
+        while (hasMovedLastCheck)
         {
-            hasMoved = false;
+            hasMovedLastCheck = false;
             foreach (var cell in game.Cells.Where(c=>c.Value!=0))
             {
                 if (!CanMove(game, cell.Pos, direction)) continue;
                 Move(game, cell.Pos, direction);
+                hasMovedLastCheck = true;
                 hasMoved = true;
             }
         }
 
-        RandomFiller.Fill(game.Cells);
+        if(hasMoved)
+            RandomFiller.Fill(game.Cells);
         return game;
     }
 
@@ -31,7 +35,11 @@ public class Mover
         if(game.Cells[game.Width * newPos.X + newPos.Y].Value ==0)
             game.Cells[game.Width * newPos.X + newPos.Y].Value = game.Cells[game.Width * pos.X + pos.Y].Value;
         else
-            game.Cells[game.Width * newPos.X + newPos.Y].Value = game.Cells[game.Width * pos.X + pos.Y].Value+1;
+        {
+            game.Cells[game.Width * newPos.X + newPos.Y].Value = game.Cells[game.Width * pos.X + pos.Y].Value*2;
+            game.Score += game.Cells[game.Width * newPos.X + newPos.Y].Value;
+        }
+            
         game.Cells[game.Width * pos.X + pos.Y].Value = 0;
     }
 
