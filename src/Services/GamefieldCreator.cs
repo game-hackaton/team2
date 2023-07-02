@@ -10,8 +10,8 @@ public class GamefieldCreator
         for (var i = 0; i < width; i++)
         for (var j = 0; j < height; j++)
             cells[i * width + j] = new CellDto(new VectorDto(i,j));
-        cells[0] = new CellDto(new VectorDto(0, 0), 1);
-        cells[1] = new CellDto(new VectorDto(0, 1), 1);
+        RandomFiller.Fill(cells);
+        RandomFiller.Fill(cells);
         return cells;
     }
 }
