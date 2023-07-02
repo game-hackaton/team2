@@ -21,15 +21,18 @@ public class Mover
             }
         }
 
+        RandomFiller.Fill(game.Cells);
         return game;
     }
 
     private static void Move(GameDto game, VectorDto pos, VectorDto direction)
     {
         var newPos = pos + direction;
-        game.Cells[game.Width * newPos.X + newPos.Y].Value += game.Cells[game.Width * pos.X + pos.Y].Value;
+        if(game.Cells[game.Width * newPos.X + newPos.Y].Value ==0)
+            game.Cells[game.Width * newPos.X + newPos.Y].Value = game.Cells[game.Width * pos.X + pos.Y].Value;
+        else
+            game.Cells[game.Width * newPos.X + newPos.Y].Value = game.Cells[game.Width * pos.X + pos.Y].Value+1;
         game.Cells[game.Width * pos.X + pos.Y].Value = 0;
-        
     }
 
     private static bool CanMove(GameDto game, VectorDto pos, VectorDto direction)
