@@ -24,7 +24,7 @@ public class GameDto
         Height = height;
         MonitorKeyboard = true;
         MonitorMouseClicks = true;
-        Id = new Guid();
+        Id = Guid.NewGuid();
         IsFinished = false;
         Score = 0;
     }

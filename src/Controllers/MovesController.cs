@@ -14,7 +14,7 @@ public class MovesController : Controller
     [HttpPost]
     public IActionResult Moves(Guid gameId, [FromBody]UserInputDto userInput)
     {
-        var game = GamesRepository.GetGame(gameId);
+        var game = GamesRepository.GetOrCreateGame(gameId);
         if (game == null) return NotFound();
         VectorDto direction;
         if (userInput == null) return Ok(game);

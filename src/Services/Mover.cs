@@ -27,15 +27,19 @@ public class Mover
     private static void Move(GameDto game, VectorDto pos, VectorDto direction)
     {
         var newPos = pos + direction;
-        game.Cells[game.Width * newPos.X + newPos.Y].Value = game.Cells[game.Width * pos.X + pos.Y].Value;
+        game.Cells[game.Width * newPos.X + newPos.Y].Value += game.Cells[game.Width * pos.X + pos.Y].Value;
         game.Cells[game.Width * pos.X + pos.Y].Value = 0;
+        
     }
 
     private static bool CanMove(GameDto game, VectorDto pos, VectorDto direction)
     {
         var newPos = pos + direction;
-        return WithinBorder(newPos.X, game.Width) && WithinBorder(newPos.Y, game.Height)
-                                                  && game.Cells[game.Width * newPos.X + newPos.Y].Value == 0;
+        var value = game.Cells[game.Width * pos.X + pos.Y].Value;
+        if (!(WithinBorder(newPos.X, game.Width)
+              && WithinBorder(newPos.Y, game.Height))) return false;
+        var otherValue = game.Cells[game.Width * newPos.X + newPos.Y].Value;
+        return  otherValue== 0 || otherValue == value;
     }
 
     private static bool WithinBorder(int newPosX, int gameWidth)
