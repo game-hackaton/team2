@@ -16,6 +16,11 @@ public class GameDto
         Score = score;
     }
 
+    public GameDto()
+    {
+        //TODO Create game
+    }
+
     public CellDto[] Cells { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
