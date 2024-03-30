@@ -31,7 +31,7 @@ public class TestData
 
         playerPosition = movingObjectPosition;
 
-        return new GameDto(testCells, true, true, width, height, Guid.Empty, GameUtils.IsGameFinished(cells, playerPosition), movingObjectPosition.Y);
+        return new GameDto(testCells, true, true, width, height, Guid.Empty, GameUtils.IsGameFinished(cells), GameUtils.GetScore(cells));
     }
 
     public static bool TryMove(VectorDto prevPos, VectorDto nextPos)
