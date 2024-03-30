@@ -5,6 +5,7 @@ namespace thegame.Services;
 
 public class TestData
 {
+    public static VectorDto playerPosition;
     public static GameDto AGameDto(VectorDto movingObjectPosition)
     {
         var width = 8;
@@ -31,7 +32,7 @@ public class TestData
 
             new CellDto("15", new VectorDto {X = 0, Y = 2}, "wall", "", 0),
             new CellDto("16", new VectorDto {X = 1, Y = 2}, "target", "", 0),
-            new CellDto("17", new VectorDto {X = 2, Y = 2}, "player", "", 20),
+            new CellDto("17", movingObjectPosition, "player", "", 20),
             new CellDto("18", new VectorDto {X = 3, Y = 2}, "box", "", 0),
             new CellDto("19", new VectorDto {X = 4, Y = 2}, "empty", "", 0),
             new CellDto("20", new VectorDto {X = 5, Y = 2}, "empty", "", 0),
@@ -92,7 +93,8 @@ public class TestData
             new CellDto("65", new VectorDto {X = 6, Y = 8}, "wall", "", 0),
             new CellDto("66", new VectorDto {X = 7, Y = 8}, "wall", "", 0),
         };
-        
+
+        playerPosition = movingObjectPosition;
         return new GameDto(testCells, true, true, width, height, Guid.Empty, movingObjectPosition.X == 0, movingObjectPosition.Y);
     }
 }
