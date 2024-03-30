@@ -23,7 +23,7 @@ public class TestData
     };
 
     public static int width = 8;
-    public static int height = 8;
+    public static int height = 9;
 
     public static GameDto AGameDto(VectorDto movingObjectPosition)
     {
@@ -47,37 +47,35 @@ public class TestData
             var diff = nextPos - prevPos;
             var posAfterNext = nextPos + diff;
             var typeAfterNext = GetCellType(posAfterNext);
-            if (TryMove(nextPos, posAfterNext))
-            {
-                if (nextType == "box")
-                {
-                    ChangeCellToType(nextPos, "empty");
-                    if (typeAfterNext == "target")
-                    {
-                        ChangeCellToType(posAfterNext, "boxOnTarget");
-                    }
-                    else
-                    {
-                        ChangeCellToType(posAfterNext, "box");
-                    }
-                    
-                }
-                else if(nextType == "")
-                {
-                    ChangeCellToType(nextPos, "target");
-                    if (typeAfterNext == "target")
-                    {
-                        ChangeCellToType(posAfterNext, "boxOnTarget");
-                    }
-                    else
-                    {
-                        ChangeCellToType(posAfterNext, "box");
-                    }
-                }
-                return true;
-            }
+            if (typeAfterNext == "box" || typeAfterNext == "boxOnTarget" || typeAfterNext == "wall")
+                return false;
 
-            return false;
+            if (nextType == "box")
+            {
+                ChangeCellToType(nextPos, "empty");
+                if (typeAfterNext == "target")
+                {
+                    ChangeCellToType(posAfterNext, "boxOnTarget");
+                }
+                else
+                {
+                    ChangeCellToType(posAfterNext, "box");
+                }
+
+            }
+            else if (nextType == "boxOnTarget")
+            {
+                ChangeCellToType(nextPos, "target");
+                if (typeAfterNext == "target")
+                {
+                    ChangeCellToType(posAfterNext, "boxOnTarget");
+                }
+                else
+                {
+                    ChangeCellToType(posAfterNext, "box");
+                }
+            }
+            return true;
         }
 
         return true;
