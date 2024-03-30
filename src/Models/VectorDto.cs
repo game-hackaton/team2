@@ -15,4 +15,11 @@ public class VectorDto
         var y = left.Y + right.Y;
         return new VectorDto() { X = x, Y = y };
     }
+
+    public static VectorDto operator -(VectorDto next, VectorDto prev)
+    {
+        var x = next.X - prev.X;
+        var y = next.Y - prev.Y;
+        return new VectorDto() { X = x, Y = y };
+    }
 }

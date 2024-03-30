@@ -18,15 +18,20 @@ public class GamesRepository
         {
             for (var j = 0; j < cols; j++)
             {
+                string type = null;
+                var zIndex = -1;
                 if (i == movingObjectPosition.Y && j == movingObjectPosition.X)
-                    cells[i, j] = 5;
-                
+                {
+                    type = "player";
+                    zIndex = 30;
+                }
+
                 result.Add(new CellDto(currentId.ToString(),
-                    new VectorDto {X = j, Y = i},
-                    GetType(cells[i, j]),
+                    new VectorDto { X = j, Y = i },
+                    type ?? GetType(cells[i, j]),
                     "",
-                    GetZIndex(cells[i, j])));
-                
+                    zIndex == -1 ? GetZIndex(cells[i, j]) : zIndex));
+
                 currentId++;
             }
         }
@@ -34,7 +39,7 @@ public class GamesRepository
         return result.ToArray();
     }
 
-    private static string GetType(int val)
+    public static string GetType(int val)
     {
         return val switch
         {
@@ -47,7 +52,7 @@ public class GamesRepository
             _ => throw new ArgumentException("Unknow cell type. Please check if your input field is correct")
         };
     }
-    
+
     private static int GetZIndex(int val)
     {
         return val switch
