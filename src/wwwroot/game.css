@@ -24,7 +24,7 @@
 /* Sokoban styles */
 
 .sokoban .field td {
-    background-color: #534741;
+    background-color: cornsilk;
 }
 
 .wall {
@@ -43,7 +43,8 @@
     background-image: radial-gradient(#9000ff 0, #9000ff 15%, transparent 17%, transparent 100%)
 }
 
-.boxOnTarget {
+.    {
+    background-color: cornsilk;
     background-image: url(images/package.svg);
     filter: brightness(50%);
 }
