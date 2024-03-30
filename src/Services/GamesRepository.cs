@@ -18,14 +18,19 @@ public class GamesRepository
         {
             for (var j = 0; j < cols; j++)
             {
+                string type = null;
+                var zIndex = -1;
                 if (i == movingObjectPosition.Y && j == movingObjectPosition.X)
-                    cells[i, j] = 5;
+                {
+                    type = "player";
+                    zIndex = 30;
+                }
                 
                 result.Add(new CellDto(currentId.ToString(),
                     new VectorDto {X = j, Y = i},
-                    GetType(cells[i, j]),
+                    type ?? GetType(cells[i, j]),
                     "",
-                    GetZIndex(cells[i, j])));
+                    zIndex == -1 ? GetZIndex(cells[i, j]) : zIndex));
                 
                 currentId++;
             }
