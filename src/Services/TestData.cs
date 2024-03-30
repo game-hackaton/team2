@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using thegame.Models;
 
 namespace thegame.Services;
 
 public class TestData
 {
-    public static VectorDto playerPosition;
+    /*public static VectorDto playerPosition;
 
     public static int[,] cells =
     {
@@ -23,20 +22,25 @@ public class TestData
     };
 
     public static int width = 8;
-    public static int height = 9;
+    public static int height = 9;*/
 
-    public static GameDto AGameDto(VectorDto movingObjectPosition)
+    public static Dictionary<Guid, GameState> _instances = new();
+    
+    public static GameDto AGameDto(VectorDto movingObjectPosition, Guid id)
     {
-        var testCells = GamesRepository.GenerateField(cells, movingObjectPosition);
+        if (!_instances.ContainsKey(id))
+            _instances[id] = new GameState();
+        
+        var testCells = GamesRepository.GenerateField(_instances[id].cells, movingObjectPosition);
 
-        playerPosition = movingObjectPosition;
+        _instances[id].playerPosition = movingObjectPosition;
 
-        return new GameDto(testCells, true, true, width, height, Guid.Empty, GameUtils.IsGameFinished(cells), GameUtils.GetScore(cells));
+        return new GameDto(testCells, true, true, _instances[id].width, _instances[id].height, id, GameUtils.IsGameFinished(_instances[id].cells), GameUtils.GetScore(_instances[id].cells));
     }
 
-    public static bool TryMove(VectorDto prevPos, VectorDto nextPos)
+    public static bool TryMove(VectorDto prevPos, VectorDto nextPos, Guid id)
     {
-        var nextType = GetCellType(nextPos);
+        var nextType = GetCellType(nextPos, id);
         if (nextType == "wall")
         {
             return false;
@@ -46,33 +50,33 @@ public class TestData
         {
             var diff = nextPos - prevPos;
             var posAfterNext = nextPos + diff;
-            var typeAfterNext = GetCellType(posAfterNext);
+            var typeAfterNext = GetCellType(posAfterNext, id);
             if (typeAfterNext == "box" || typeAfterNext == "boxOnTarget" || typeAfterNext == "wall")
                 return false;
 
             if (nextType == "box")
             {
-                ChangeCellToType(nextPos, "empty");
+                ChangeCellToType(nextPos, "empty", id);
                 if (typeAfterNext == "target")
                 {
-                    ChangeCellToType(posAfterNext, "boxOnTarget");
+                    ChangeCellToType(posAfterNext, "boxOnTarget", id);
                 }
                 else
                 {
-                    ChangeCellToType(posAfterNext, "box");
+                    ChangeCellToType(posAfterNext, "box", id);
                 }
 
             }
             else if (nextType == "boxOnTarget")
             {
-                ChangeCellToType(nextPos, "target");
+                ChangeCellToType(nextPos, "target", id);
                 if (typeAfterNext == "target")
                 {
-                    ChangeCellToType(posAfterNext, "boxOnTarget");
+                    ChangeCellToType(posAfterNext, "boxOnTarget", id);
                 }
                 else
                 {
-                    ChangeCellToType(posAfterNext, "box");
+                    ChangeCellToType(posAfterNext, "box", id);
                 }
             }
             return true;
@@ -81,17 +85,17 @@ public class TestData
         return true;
     }
 
-    private static string GetCellType(VectorDto pos)
+    private static string GetCellType(VectorDto pos, Guid id)
     {
-        var num = cells[pos.Y, pos.X];
+        var num = _instances[id].cells[pos.Y, pos.X];
         var type = GamesRepository.GetType(num);
         return type;
     }
 
-    private static void ChangeCellToType(VectorDto pos, string type)
+    private static void ChangeCellToType(VectorDto pos, string type, Guid id)
     {
         var num = GetType(type);
-        cells[pos.Y, pos.X] = num;
+        _instances[id].cells[pos.Y, pos.X] = num;
     }
 
     public static int GetType(string val)

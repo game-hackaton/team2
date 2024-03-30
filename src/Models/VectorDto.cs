@@ -1,7 +1,3 @@
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.VisualBasic.CompilerServices;
-
 namespace thegame.Models;
 
 public class VectorDto
