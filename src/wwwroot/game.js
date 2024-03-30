@@ -14,7 +14,7 @@ function handleApiErrors(result) {
     return result.json();
 }
 
-async function startGame() {
+async function startGame(level) {
     game = await fetch("/api/games", { method: "POST" })
         .then(handleApiErrors);
     window.history.replaceState(game.id, "The Game", "/" + game.id);
@@ -145,9 +145,11 @@ function onCellClick(e) {
 function initializePage() {
     const gameId = window.location.pathname.substring(1);
     // use gameId if you want
+    const levelSelect = document.getElementById("levelSelect");
+    const selectedLevel = levelSelect.value;
     startButton.addEventListener("click", e => {
         startgameOverlay.classList.toggle("hidden", true);
-        startGame();
+        startGame(selectedLevel);
     });
     addKeyboardListener();
     addResizeListener();
