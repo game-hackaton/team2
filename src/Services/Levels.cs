@@ -1,8 +1,10 @@
-﻿namespace thegame.Services;
+﻿using System.Collections.Generic;
+
+namespace thegame.Services;
 
 public static class Levels
 {
-    public static int[,] First =
+    public static readonly int[,] First =
     {
         {0, 0, 1, 1, 1, 1, 1, 0},
         {1, 1, 1, 0, 0, 0, 1, 0},
@@ -15,10 +17,15 @@ public static class Levels
         {1, 1, 1, 1, 1, 1, 1, 1}
     };
 
-    public static int[,] Second =
+    public static readonly int[,] Second =
     {
         {1, 1, 1, 1, 1},
         {1, 0, 2, 3, 1},
         {1, 1, 1, 1, 1}
+    };
+    
+    public static readonly List<int[,]> AvailableLevels = new()
+    {
+        First, Second
     };
 }
