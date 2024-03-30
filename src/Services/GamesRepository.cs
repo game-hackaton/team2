@@ -6,7 +6,7 @@ namespace thegame.Services;
 
 public class GamesRepository
 {
-    public static CellDto[] GenerateField(int[,] cells)
+    public static CellDto[] GenerateField(int[,] cells, VectorDto movingObjectPosition)
     {
         var result = new List<CellDto>();
 
@@ -18,6 +18,9 @@ public class GamesRepository
         {
             for (var j = 0; j < cols; j++)
             {
+                if (i == movingObjectPosition.Y && j == movingObjectPosition.X)
+                    cells[i, j] = 5;
+                
                 result.Add(new CellDto(currentId.ToString(),
                     new VectorDto {X = j, Y = i},
                     GetType(cells[i, j]),
