@@ -92,6 +92,7 @@ public class TestData
             new CellDto("65", new VectorDto {X = 6, Y = 8}, "wall", "", 0),
             new CellDto("66", new VectorDto {X = 7, Y = 8}, "wall", "", 0),
         };
+        
         return new GameDto(testCells, true, true, width, height, Guid.Empty, movingObjectPosition.X == 0, movingObjectPosition.Y);
     }
 }
