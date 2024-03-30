@@ -6,24 +6,6 @@ namespace thegame.Services;
 
 public class TestData
 {
-    /*public static VectorDto playerPosition;
-
-    public static int[,] cells =
-    {
-        {0, 0, 1, 1, 1, 1, 1, 0},
-        {1, 1, 1, 0, 0, 0, 1, 0},
-        {1, 3, 0, 2, 0, 0, 1, 0},
-        {1, 1, 1, 0, 2, 3, 1, 0},
-        {1, 3, 1, 1, 2, 0, 1, 0},
-        {1, 0, 1, 0, 3, 0, 1, 1},
-        {1, 2, 0, 4, 2, 2, 3, 1},
-        {1, 0, 0, 0, 3, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1}
-    };
-
-    public static int width = 8;
-    public static int height = 9;*/
-
     public static Dictionary<Guid, GameState> _instances = new();
     
     public static GameDto AGameDto(VectorDto movingObjectPosition, Guid id)
