@@ -13,6 +13,11 @@ public class MovesController : Controller
     [HttpPost]
     public IActionResult Moves(Guid gameId, [FromBody]UserInputDto userInput)
     {
+        if (userInput.KeyPressed == 82)
+        {
+            return Ok(TestData.AGameDto(new VectorDto {X = 2, Y = 2}, Guid.NewGuid()));
+        }
+        
         var nextPos = InputKeyMapper.Map(userInput.KeyPressed) + TestData._instances[gameId].playerPosition;
         if (TestData.TryMove(TestData._instances[gameId].playerPosition, nextPos, gameId))
         {
