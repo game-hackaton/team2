@@ -11,6 +11,6 @@ public class GamesController : Controller
     [HttpPost]
     public IActionResult Index([FromRoute]int level)
     {
-        return Ok(TestData.AGameDto(new VectorDto {X = 2, Y = 2}, new Guid()));
+        return Ok(TestData.AGameDto(new VectorDto {X = 2, Y = 2}, Guid.NewGuid()));
     }
 }
