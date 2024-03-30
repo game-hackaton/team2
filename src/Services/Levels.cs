@@ -1,30 +1,15 @@
 ﻿using System.Collections.Generic;
+using thegame.Models;
 
 namespace thegame.Services;
 
 public static class Levels
 {
-    public static readonly int[,] First =
-    {
-        {0, 0, 1, 1, 1, 1, 1, 0},
-        {1, 1, 1, 0, 0, 0, 1, 0},
-        {1, 3, 0, 2, 0, 0, 1, 0},
-        {1, 1, 1, 0, 2, 3, 1, 0},
-        {1, 3, 1, 1, 2, 0, 1, 0},
-        {1, 0, 1, 0, 3, 0, 1, 1},
-        {1, 2, 0, 4, 2, 2, 3, 1},
-        {1, 0, 0, 0, 3, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1}
-    };
+    public static readonly Level First = new(Level.First, new VectorDto {X = 2, Y = 2});
 
-    public static readonly int[,] Second =
-    {
-        {1, 1, 1, 1, 1},
-        {1, 0, 2, 3, 1},
-        {1, 1, 1, 1, 1}
-    };
-    
-    public static readonly List<int[,]> AvailableLevels = new()
+    public static readonly Level Second = new(Level.Second, new VectorDto {X = 1, Y = 1});
+
+    public static readonly List<Level> AvailableLevels = new()
     {
         First, Second
     };
